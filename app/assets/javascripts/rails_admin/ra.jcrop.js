@@ -5,7 +5,7 @@
       var widget = this;
       var dom_widget = widget.element;
 
-      dom_widget.find('a.thumbnail').unbind().bind("click", function(e){
+      dom_widget.find('img').parent().unbind().bind("click", function(e){
         widget._bindModalOpening(e, dom_widget.find('a.jcrop_handle').data('link'));
         return false;
       });
@@ -51,7 +51,7 @@
         keySupport: false,
         onSelect: widget.updateCoordinates
       }, rails_admin_jcrop_options);
-      dialog.find('img.jcrop-subject').Jcrop(jcrop_options)
+      dialog.find('img.jcrop-subject').Jcrop(jcrop_options);
 
       form.attr("data-remote", true);
       dialog.find('.modal-header-title').text(form.data('title'));
@@ -75,8 +75,8 @@
           var json = $.parseJSON(data.responseText);
           var select = widget.element.find('select').filter(":hidden");
 
-          thumb = widget.element.find('a.jcrop_handle').data('thumb');
-          widget.element.find('a.thumbnail > img').removeAttr('src').attr('src', json.urls[thumb] + '?' + new Date().valueOf());
+          var thumb = widget.element.find('a.jcrop_handle').data('thumb');
+          widget.element.find('img').removeAttr('src').attr('src', json.urls[thumb] + '?' + new Date().valueOf());
 
           widget._trigger("success");
           dialog.modal("hide");
