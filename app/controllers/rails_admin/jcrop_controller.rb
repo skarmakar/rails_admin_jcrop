@@ -15,9 +15,9 @@ module RailsAdmin
 
       @image_tag_options = {}
       @image_tag_options[:class] = "jcrop-subject"
-      # hack: check if using s3 storage
+      #check if using s3 storage
       attachment = @object.send(@field)
-      image_path = if attachment.url.include?("s3.amazonaws.com")
+      image_path = if attachment.attachment.options[:storage] == :s3
                      attachment.url
                    else
                      attachment.path
